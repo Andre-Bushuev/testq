@@ -6,7 +6,7 @@
 #pragma pack(push,1)
 using namespace std;
 
-// Cтруктура Volume Header
+// CГІГ°ГіГЄГІГіГ°Г  Volume Header
 struct Volume_Header
 {
     WORD header_crc;
@@ -15,7 +15,7 @@ struct Volume_Header
     WORD header_size;
 };
 
-// Cтруктура File_head для извлечения имён файлов
+// CГІГ°ГіГЄГІГіГ°Г  File_head Г¤Г«Гї ГЁГ§ГўГ«ГҐГ·ГҐГ­ГЁГї ГЁГ¬ВёГ­ ГґГ Г©Г«Г®Гў
 
 struct File_head
 {
@@ -31,9 +31,9 @@ struct File_head
 };
 
 #pragma pack(pop)
-// Прототип функции вывода имён файлов
+// ГЏГ°Г®ГІГ®ГІГЁГЇ ГґГіГ­ГЄГ¶ГЁГЁ ГўГ»ГўГ®Г¤Г  ГЁГ¬ВёГ­ ГґГ Г©Г«Г®Гў
 
-// Сигнатуры
+// Г‘ГЁГЈГ­Г ГІГіГ°Г»
 
 const BYTE signatures[] = {0x52, 0x61, 0x72, 0x21, 0x1A, 0x07, 0x00};
 void PrintHeaderContent(const vector <char> &, DWORD filesize);
@@ -42,7 +42,7 @@ void Print_vector(const vector <char> & printing_vector, int vectorsize);
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    HANDLE file_to_open_Handler = CreateFile("C:\\Users\\Андрей\\Downloads\\HomeW\\Example (3).rar",
+    HANDLE file_to_open_Handler = CreateFile("C:\\Users\\ГЂГ­Г¤Г°ГҐГ©\\Downloads\\HomeW\\Example (3).rar",
                                               GENERIC_READ,
                                               0,
                                               NULL,
@@ -52,10 +52,10 @@ int main() {
 
     if (file_to_open_Handler == INVALID_HANDLE_VALUE)
     {
-        cout << "Ошибка открытия файла" << endl;
+        cout << "ГЋГёГЁГЎГЄГ  Г®ГІГЄГ°Г»ГІГЁГї ГґГ Г©Г«Г " << endl;
         return 1;
     }
-    // Получаем размер файла
+    // ГЏГ®Г«ГіГ·Г ГҐГ¬ Г°Г Г§Г¬ГҐГ° ГґГ Г©Г«Г 
     DWORD fileSize = GetFileSize(file_to_open_Handler, NULL);
 
     vector<char> buffer(fileSize);
@@ -88,12 +88,12 @@ void DebugVar(auto variable)
 void PrintHeaderContent(const vector <char> & filebufer, DWORD filesize)
 {
 
-    // Создаём экземпляр структуры Volume Header
+    // Г‘Г®Г§Г¤Г ВёГ¬ ГЅГЄГ§ГҐГ¬ГЇГ«ГїГ° Г±ГІГ°ГіГЄГІГіГ°Г» Volume Header
     cout << "\nFile size : " <<  filesize << endl ;
     Volume_Header header_main;
-    // Создаём экземпляр структуры для header файла
+    // Г‘Г®Г§Г¤Г ВёГ¬ ГЅГЄГ§ГҐГ¬ГЇГ«ГїГ° Г±ГІГ°ГіГЄГІГіГ°Г» Г¤Г«Гї header ГґГ Г©Г«Г 
     File_head file_header;
-    int index_to_cut = sizeof(signatures); // 7 байт для среза(структура)
+    int index_to_cut = sizeof(signatures); // 7 ГЎГ Г©ГІ Г¤Г«Гї Г±Г°ГҐГ§Г (Г±ГІГ°ГіГЄГІГіГ°Г )
     int count_of_files = 0;
     while (index_to_cut < filesize)
     {
@@ -102,7 +102,7 @@ void PrintHeaderContent(const vector <char> & filebufer, DWORD filesize)
         {
             int temporary = index_to_cut;
             count_of_files++ ;
-            wcout << "\n--->0х74<-----" << endl;
+            wcout << "\n--->0Гµ74<-----" << endl;
             index_to_cut += sizeof(header_main) ;
             memcpy(&file_header, &filebufer[index_to_cut], sizeof(file_header));
             index_to_cut += sizeof(file_header);
@@ -124,7 +124,8 @@ void PrintHeaderContent(const vector <char> & filebufer, DWORD filesize)
             index_to_cut += sizeof(header_main.header_size) ;
         }
     }
-    wcout << "Количество файлов в архиве :" << count_of_files;
+    wcout << "ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГґГ Г©Г«Г®Гў Гў Г Г°ГµГЁГўГҐ :" << count_of_files;
+    cout << "РџСЂРѕРіСЂР°РјРјР° Р·Р°РІРµСЂС€РёРЅР°"<< endl;
 
 
 }
